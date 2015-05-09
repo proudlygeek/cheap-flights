@@ -10,17 +10,11 @@
   <div>
     <h1>Search your cheap flight!</h1>
     <form ng-controller="FormCtrl">
-      <label for="from-airport">From: <input ng-model="fromAirport" ng-keypress="checkPressedKey($event)" ng-change="reset()" ng-blur="setDestinations()" name="airport-from" type="text"></label>
-      <label for="airport-to">To: <input name="airport-to" type="text"></label>
-      <label for="date">Date: <input name="data" type="date"></label>
-      <ul class="autocomplete" ng-show="fromAirport">
-        <li ng-repeat="airport in (filteredAirports =  (airports|filter:{name: fromAirport}))">
-          {{ airport.name }}
-        </li>
-      </ul>
+     
+     <autocomplete placeholder="From:" items="airports" on-select="setDestination(selection)"></autocomplete>
+     <autocomplete placeholder="To:" items="destinationAirports"></autocomplete>
 
-      {{ destinations }}
-
+     <label for="date">Date: <input name="data" type="date"></label>
     </form>
   </div>
   <script src="/node_modules/angular/angular.js"></script>
