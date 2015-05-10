@@ -21,11 +21,16 @@ var app = angular.module('myApp', [])
 
       switch (e.which) {
         case KEYBOARD.ENTER:
-        case KEYBOARD.TAB: 
+        case KEYBOARD.TAB:
           e.preventDefault();
+          var nextInput = el.next('autocomplete').find('input');
 
           scope.onBlur();
-          el.next('autocomplete').find('input')[0].focus();
+
+          if (nextInput[0]) {
+            nextInput[0].focus();
+          }
+
           break;
 
         case KEYBOARD.DOWN:
@@ -50,6 +55,11 @@ var app = angular.module('myApp', [])
       }
     };
 
+    scope.selectFromClick = function(e) {
+      e.preventDefault();
+      console.log(e);
+    };
+
     scope.onBlur = function() {
       scope.focused = false;
 
@@ -62,6 +72,9 @@ var app = angular.module('myApp', [])
 
     scope.onFocus = function() {
       scope.focused = true;
+      scope.selectIndex = 0;
+      
+      scope.autocompleteInput = '';
     };
   };
 

@@ -126,6 +126,11 @@ body {
   overflow-y: scroll;
 }
 
+.autocomplete .suggestions li {
+  float: left;
+  width: 50%;
+}
+
 .selected {
   font-weight: bold;
 }
