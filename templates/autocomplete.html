@@ -1,4 +1,4 @@
-<input type="text" name="{{ name }}" placeholder="{{ placeholder }}" ng-blur="onBlur($event)" ng-keydown="onKeydown($event)" ng-model="autocompleteInput" />
+<input type="text" name="{{ name }}" placeholder="{{ placeholder }}" ng-blur="onBlur()" ng-keydown="onKeydown($event)" ng-model="autocompleteInput" />
 
 <ul class="autocomplete-items" ng-show="autocompleteInput.length && !selected">
   <li ng-repeat="item in (filtered = (items|filter:{name: autocompleteInput}))">
