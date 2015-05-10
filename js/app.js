@@ -50,12 +50,18 @@ var app = angular.module('myApp', [])
       }
     };
 
-    scope.onBlur = function() { 
-      if (scope.autocompleteInput && scope.filtered && scope.filtered.length) {
+    scope.onBlur = function() {
+      scope.focused = false;
+
+      if (scope.filtered && scope.filtered.length) {
         scope.selected = true;
         scope.autocompleteInput = scope.filtered[scope.selectIndex].name;
         scope.onSelect({ selection: scope.filtered[scope.selectIndex] });
       }
+    };
+
+    scope.onFocus = function() {
+      scope.focused = true;
     };
   };
 
