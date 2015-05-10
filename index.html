@@ -11,10 +11,19 @@
     <h1>Search your cheap flight!</h1>
     <form ng-controller="FormCtrl">
      
-     <autocomplete placeholder="From:" items="airports" on-select="setDestination(selection)"></autocomplete>
-     <autocomplete placeholder="To:" items="destinationAirports"></autocomplete>
+    <autocomplete 
+      name="airport-from" 
+      placeholder="From:" 
+      items="airports" 
+      on-select="setDestination(selection)">
+    </autocomplete>
+    <autocomplete 
+      name="airport-to" 
+      placeholder="To:" 
+      items="destinationAirports">
+    </autocomplete>
 
-     <label for="date">Date: <input name="data" type="date"></label>
+    <label for="date">Date: <input name="data" type="date"></label>
     </form>
   </div>
   <script src="/node_modules/angular/angular.js"></script>

@@ -7,55 +7,39 @@ app.controller('FormCtrl', function($scope, Flights) {
     $scope.destinationAirports = Flights.getDestinationsFor(airport.iataCode);
   };
 
-  /* $scope.reset = function() {
-    if (!($scope.filteredAirports.length && $scope.fromAirport)) {
-      $scope.airports = Flights.airports();
-      $scope.destinationAirports = [];
-    }
-  }; */
-
-  /*$scope.checkPressedKey = function(e) {
-    if (e.keyCode === 13) {
-      var nextField = e.target.form.querySelector('input[name="airport-to"]');
-      nextField.focus();
-    }
-  };*/
-
 });
 
 app.directive('autocomplete', function($compile) {
   var linker = function(scope, el, attrs) {
-    var input = el.find('input');
+    scope.onKeydown = function(e) {
 
-    input.on('keydown', function(e) {
-      console.log(e);
-
-      scope.$apply(function()  {
+      if (e.which === 13) {
+        scope.onBlur();
+        el.next('autocomplete').find('input')[0].focus();
+      } else {
         scope.selected = false;
-      });
-    });
-    
-    input.on('blur', function() { 
-      // TODO: send current selection index if length > 1
-      scope.$apply(function() {
-        if (scope.autocompleteInput) {
-          scope.selected = true;
-          scope.autocompleteInput = scope.filtered[0].name;
-          scope.onSelect({selection: scope.filtered[0] });
-        }
-      });
-    });
+      }
+    };
 
+    scope.onBlur = function(e) { 
+      // TODO: send current selection index if length > 1
+      if (scope.autocompleteInput && scope.filtered && scope.filtered.length) {
+        scope.selected = true;
+        scope.autocompleteInput = scope.filtered[0].name;
+        scope.onSelect({selection: scope.filtered[0] });
+      }
+    };
   };
 
   return {
     scope: {
       'placeholder': '@',
+      'name': '@',
       'items': '=',
       'onSelect': '&'
     },
     restrict: 'EA',
-    transclude: true,
+    transclude: false,
     templateUrl: 'templates/autocomplete.html',
     link: linker
   };
