@@ -2,6 +2,7 @@ var app = angular.module('myApp', [])
 .constant('KEYBOARD', {
   UP: 38,
   DOWN: 40,
+  TAB: 9,
   ENTER: 13
 })
 .controller('FormCtrl', function($scope, Flights) {
@@ -17,8 +18,12 @@ var app = angular.module('myApp', [])
     scope.selectIndex = 0;
 
     scope.onKeydown = function(e) {
+
       switch (e.which) {
         case KEYBOARD.ENTER:
+        case KEYBOARD.TAB: 
+          e.preventDefault();
+
           scope.onBlur();
           el.next('autocomplete').find('input')[0].focus();
           break;
@@ -33,7 +38,7 @@ var app = angular.module('myApp', [])
 
         case KEYBOARD.UP:
           e.preventDefault();
-
+          
           if (scope.selectIndex > 0) {
             scope.selectIndex--;
           }
