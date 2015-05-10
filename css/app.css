@@ -23,6 +23,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cf-chevron-right:before {
+  content: "\e601";
+}
+
+.cf-chevron-left:before {
+  content: "\e602";
+}
+
+.cf-calendar:before {
+  content: "\e600";
+}
+
 .cf-spinner8:before {
   content: "\e981";
 }
@@ -81,6 +93,7 @@ body {
   padding: 50px;
   box-sizing: border-box;
   position: relative;
+  float: left;
 }
 
 .cheap-flights .title {
@@ -88,12 +101,7 @@ body {
   margin-top: 0;
 }
 
-.autocomplete {
-  position: relative;
-}
-
-.autocomplete input {
-  width: 100%;
+.cheap-flights input {
   box-sizing: border-box;
   font-size: 1.2em;
   padding: 10px;
@@ -102,9 +110,17 @@ body {
   margin-top: -1px;
 }
 
-.autocomplete input:focus {
+.cheap-flights input:focus {
   outline: none;
   border: 1px solid #307AAB;
+}
+
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete input {
+  width: 100%;
 }
 
 .autocomplete .suggestions {
@@ -142,4 +158,63 @@ body {
 
 .selected {
   font-weight: bold;
+}
+
+.datepicker-container {
+  float: left;
+  position: relative;
+  width: 100%;
+}
+
+datepicker {
+  float: left;
+  position: relative;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.datepicker input {
+  width: 100%;
+  padding-left: 30px;
+}
+
+.datepicker .cf-calendar {
+  position: absolute;
+  top: 13px;
+  left: 10px;
+  color: rgb(167, 183, 194);
+}
+
+.datepicker table {
+  background: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  width: 390px;
+  position: absolute;
+  top: 43px;
+  margin-left: -2px;
+  left: 2px;
+  z-index: 1; 
+  border: 1px solid #307AAB;
+}
+
+.datepicker table td {
+  box-sizing: content-box;
+  line-height: 1;
+  font-family: Helvetica Neue;
+}
+
+.datepicker .day {
+  width: 100%;
+  padding: 10px;
+  text-decoration: none;
+  display: inline-block;
+  box-sizing: border-box;
+  color: inherit;
+}
+
+.datepicker .day:hover {
+  color: #fff;
+  background-color: #A7B7C2;
 }

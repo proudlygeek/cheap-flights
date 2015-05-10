@@ -95,7 +95,7 @@ var app = angular.module('myApp', [])
     link: linker
   };
 })
-.directive('datepicker', function() {
+.directive('datepicker', function($filter) {
   var linker = function(scope, el, attrs) {
     var getMonthDays = function(year, month) {
       return new Date(year, month + 1, 0).getDate();
@@ -105,19 +105,19 @@ var app = angular.module('myApp', [])
       return new Date(year, month, 1).getDay();
     };
 
-    var getWeeks = function(start, num) {
+    var getWeeks = function(start, num, month, year) {
       var dates = [],
           numWeeks = Math.ceil((num + start) / 7);
 
-      for ( var i = 0; i < numWeeks; i++){
+      for (var i = 0; i < numWeeks; i++){
         dates[i] = [];
 
-        for(var j = 0; j < 7; j++){
+        for (var j = 0; j < 7; j++){
           if (i == 0 && j < start){
-            dates[i].push('');
+            dates[i].push({date:'', label: ''});
           } else {
             var day = (j - start + 1) + (i * 7);
-            dates[i].push(day <= num ? day : '');
+            dates[i].push(day <= num ? {date: new Date(year, month, day), label: day} : {date:'', label: ''});
           }
         }
       }
@@ -129,7 +129,26 @@ var app = angular.module('myApp', [])
         year = now.getFullYear(),
         month = now.getMonth();
 
-    scope.weeks = getWeeks(getFirstMonthWeekDay(year, month) - 1, getMonthDays(year, month));
+    scope.onFocus = function() {
+      scope.date = '';
+      scope.selected = true;
+    }
+
+    scope.onBlur = function(e) {
+
+      if (angular.element(e.relatedTarget).hasClass('day')) {
+        return false;
+      }
+
+      scope.selected = false;
+    }
+
+    scope.submitDay = function(date) {
+      scope.date = $filter('date')(date, 'dd MMM yyyy');
+      scope.selected = false;
+    }
+
+    scope.weeks = getWeeks(getFirstMonthWeekDay(year, month) - 1, getMonthDays(year, month), month, year);
   };
 
   return {
