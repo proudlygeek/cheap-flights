@@ -15,6 +15,7 @@ var app = angular.module('myApp', [])
 })
 .directive('autocomplete', function(KEYBOARD) {
   var linker = function(scope, el, attrs) {
+
     scope.selectIndex = 0;
 
     scope.onKeydown = function(e) {
@@ -50,7 +51,6 @@ var app = angular.module('myApp', [])
           break;
 
         default:
-          scope.selectIndex = 0;
           scope.selected = false;
       }
     };
@@ -73,7 +73,6 @@ var app = angular.module('myApp', [])
     scope.onFocus = function() {
       scope.focused = true;
       scope.selectIndex = 0;
-      
       scope.autocompleteInput = '';
     };
   };
@@ -86,8 +85,19 @@ var app = angular.module('myApp', [])
       'onSelect': '&'
     },
     restrict: 'EA',
-    transclude: false,
+    transclude: true,
     templateUrl: 'templates/autocomplete.html',
+    link: linker
+  };
+})
+.directive('calendar', function($scope) {
+  var linker = function(scope, el, attrs) {
+
+  };
+
+  return {
+    scope: {},
+    restrict: 'EA',
     link: linker
   };
 })
