@@ -38,7 +38,7 @@ var app = angular.module('myApp', [])
 
         case KEYBOARD.UP:
           e.preventDefault();
-          
+
           if (scope.selectIndex > 0) {
             scope.selectIndex--;
           }
@@ -51,7 +51,6 @@ var app = angular.module('myApp', [])
     };
 
     scope.onBlur = function() { 
-      // TODO: send current selection index if length > 1
       if (scope.autocompleteInput && scope.filtered && scope.filtered.length) {
         scope.selected = true;
         scope.autocompleteInput = scope.filtered[scope.selectIndex].name;

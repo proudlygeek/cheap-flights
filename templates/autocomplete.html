@@ -1,8 +1,10 @@
-<input type="text" name="{{ name }}" placeholder="{{ placeholder }}" ng-keydown="onKeydown($event)" ng-model="autocompleteInput" />
+<div class="autocomplete">
+  <input type="text" name="{{ name }}" placeholder="{{ placeholder }}" ng-blur="onBlur()" ng-keydown="onKeydown($event)" ng-model="autocompleteInput" />
 
-<ul class="autocomplete-items" ng-show="autocompleteInput.length && !selected">
-  <li ng-class="{selected: $index === selectIndex}" ng-repeat="item in (filtered = (items|filter:{name: autocompleteInput}))">
-    <a>{{ item.name }}</a>
-  </li>
-  <li ng-show="!filtered.length">No results found :(</li>
-</ul>
+  <ul class="suggestions" ng-show="autocompleteInput.length && !selected">
+    <li ng-class="{selected: $index === selectIndex}" ng-repeat="item in (filtered = (items|filter:{name: autocompleteInput}))">
+      <a>{{ item.name }}</a>
+    </li>
+    <li ng-show="!filtered.length">No results found :(</li>
+  </ul>
+</div>
