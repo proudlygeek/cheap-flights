@@ -131,6 +131,15 @@ body {
   width: 50%;
 }
 
+.autocomplete .suggestions li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.autocomplete .suggestions li a:hover {
+  text-decoration: underline;
+}
+
 .selected {
   font-weight: bold;
 }

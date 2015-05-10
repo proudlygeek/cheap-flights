@@ -26,7 +26,7 @@ var app = angular.module('myApp', [])
           e.preventDefault();
           var nextInput = el.next('autocomplete').find('input');
 
-          scope.onBlur();
+          scope.onBlur(e);
 
           if (nextInput[0]) {
             nextInput[0].focus();
@@ -57,11 +57,16 @@ var app = angular.module('myApp', [])
 
     scope.selectFromClick = function(e) {
       e.preventDefault();
-      console.log(e);
+      scope.selectIndex = angular.element(e.srcElement.parentNode).attr('data-index');
+      scope.onBlur();
     };
 
-    scope.onBlur = function() {
-      scope.focused = false;
+    scope.onBlur = function(e) {
+      if (e && e.relatedTarget && angular.element(e.relatedTarget).hasClass('item')) {
+        return false;
+      }
+
+      scope.focused = false;  
 
       if (scope.filtered && scope.filtered.length) {
         scope.selected = true;
@@ -70,7 +75,7 @@ var app = angular.module('myApp', [])
       }
     };
 
-    scope.onFocus = function() {
+    scope.onFocus = function(e) {
       scope.focused = true;
       scope.selectIndex = 0;
       scope.autocompleteInput = '';
@@ -90,14 +95,50 @@ var app = angular.module('myApp', [])
     link: linker
   };
 })
-.directive('calendar', function($scope) {
+.directive('datepicker', function() {
   var linker = function(scope, el, attrs) {
+    var getMonthDays = function(year, month) {
+      return new Date(year, month + 1, 0).getDate();
+    };
 
+    var getFirstMonthWeekDay = function(year, month) {
+      return new Date(year, month, 1).getDay();
+    };
+
+    var getWeeks = function(start, num) {
+      var dates = [],
+          numWeeks = Math.ceil((num + start) / 7);
+
+      for ( var i = 0; i < numWeeks; i++){
+        dates[i] = [];
+
+        for(var j = 0; j < 7; j++){
+          if (i == 0 && j < start){
+            dates[i].push('');
+          } else {
+            var day = (j - start + 1) + (i * 7);
+            dates[i].push(day <= num ? day : '');
+          }
+        }
+      }
+
+      return dates;
+    };
+
+    var now = new Date(),
+        year = now.getFullYear(),
+        month = now.getMonth();
+
+    scope.weeks = getWeeks(getFirstMonthWeekDay(year, month) - 1, getMonthDays(year, month));
   };
 
   return {
-    scope: {},
+    scope: {
+      'name': '@'
+    },
     restrict: 'EA',
+    transclude: true,
+    templateUrl: 'templates/datepicker.html',
     link: linker
   };
 })

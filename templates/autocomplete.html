@@ -1,9 +1,9 @@
 <div class="autocomplete">
-  <input type="text" name="{{ name }}" placeholder="{{ placeholder }}" ng-focus="onFocus()" ng-blur="onBlur()" ng-keydown="onKeydown($event)" ng-model="autocompleteInput" />
+  <input type="text" name="{{ name }}" placeholder="{{ placeholder }}" ng-focus="onFocus($event)" ng-blur="onBlur($event)" ng-keydown="onKeydown($event)" ng-model="autocompleteInput" />
 
   <ul class="suggestions" ng-show="(autocompleteInput.length && !selected) || focused">
-    <li ng-class="{selected: $index === selectIndex}" ng-repeat="item in (filtered = (items|filter:{name: autocompleteInput}))">
-      <a ng-click="selectFromClick($event)" href="#">{{ item.name }}</a>
+    <li ng-class="{selected: $index === selectIndex}" data-index="{{ $index }}" ng-repeat="item in (filtered = (items|filter:{name: autocompleteInput}))">
+      <a class="item" ng-click="selectFromClick($event)" href="#">{{ item.name }}</a>
     </li>
     <li ng-show="!filtered.length">No results found :(</li>
   </ul>
