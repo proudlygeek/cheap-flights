@@ -14,13 +14,33 @@ var app = angular.module('myApp', [])
 })
 .directive('autocomplete', function(KEYBOARD) {
   var linker = function(scope, el, attrs) {
+    scope.selectIndex = 0;
+
     scope.onKeydown = function(e) {
       switch (e.which) {
         case KEYBOARD.ENTER:
           scope.onBlur();
           el.next('autocomplete').find('input')[0].focus();
           break;
+
+        case KEYBOARD.DOWN:
+          e.preventDefault();
+
+          if (scope.selectIndex < scope.filtered.length - 1) {
+            scope.selectIndex++;
+          }
+          break;
+
+        case KEYBOARD.UP:
+          e.preventDefault();
+
+          if (scope.selectIndex > 0) {
+            scope.selectIndex--;
+          }
+          break;
+
         default:
+          scope.selectIndex = 0;
           scope.selected = false;
       }
     };
@@ -29,8 +49,8 @@ var app = angular.module('myApp', [])
       // TODO: send current selection index if length > 1
       if (scope.autocompleteInput && scope.filtered && scope.filtered.length) {
         scope.selected = true;
-        scope.autocompleteInput = scope.filtered[0].name;
-        scope.onSelect({ selection: scope.filtered[0] });
+        scope.autocompleteInput = scope.filtered[scope.selectIndex].name;
+        scope.onSelect({ selection: scope.filtered[scope.selectIndex] });
       }
     };
   };
