@@ -1,6 +1,7 @@
 <div class="datepicker">
   <div class="cf-calendar icon"></div>
   <input name="{{ name }}" type="text" readonly ng-model="date" ng-focus="onFocus($event)" ng-blur="onBlur($event)" />
+  <input type="hidden" name="date-{{name}}" value="{{ dateAlt }}" />
   <table ng-show="selected">
     <thead>
       <tr class="title">

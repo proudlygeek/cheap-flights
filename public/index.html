@@ -15,22 +15,28 @@
         <h1 class="title">Search your cheap flight!</h1>
         <form ng-controller="FormCtrl">
         <autocomplete
-          name="airport-from"
+          name="from-airport"
           placeholder="From:"
           items="airports"
+          required="true",
           on-select="setDestination(selection)">
         </autocomplete>
         <autocomplete
-          name="airport-to"
+          name="to-airport"
           placeholder="To:"
-          items="destinationAirports">
+          items="destinationAirports"
+          required="true">
         </autocomplete>
         <div class="datepicker-container">
-          <datepicker name="date-from" starts-from="0"></datepicker>
-          <datepicker name="date-to" starts-from="1"></datepicker>
+          <datepicker name="from" starts-from="0"></datepicker>
+          <datepicker name="to" starts-from="1"></datepicker>
         </div>
 
         <search-flights
+          from-airport="from-airport",
+          to-airport="to-airport",
+          from="from",
+          to="to",
           button-name="FIND FLIGHTS">
         </search-flights>
         </form>

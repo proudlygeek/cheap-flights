@@ -5,17 +5,11 @@ var app = angular.module('myApp', [])
   TAB: 9,
   ENTER: 13
 })
-.controller('FormCtrl', function($scope, $timeout, Flights) {
+.controller('FormCtrl', function($scope, Flights) {
   $scope.airports = Flights.airports();
 
   $scope.setDestination = function(airport) {
     $scope.destinationAirports = Flights.getDestinationsFor(airport.iataCode);
-  };
-
-  $scope.handleSubmit = function() {
-    Flights.fetchCheapFlights().then(function(response) {
-      $scope.response = response.flights;
-    });
   };
 
 })
@@ -77,6 +71,7 @@ var app = angular.module('myApp', [])
       if (scope.filtered && scope.filtered.length) {
         scope.selected = true;
         scope.autocompleteInput = scope.filtered[scope.selectIndex].name;
+        scope.autocompleteCode = scope.filtered[scope.selectIndex].iataCode;
         scope.onSelect({ selection: scope.filtered[scope.selectIndex] });
       }
     };
@@ -169,6 +164,7 @@ var app = angular.module('myApp', [])
 
     scope.submitDay = function(date) {
       scope.date = $filter('date')(date, 'dd MMM yyyy');
+      scope.dateAlt = $filter('date')(date, 'yyyy-MM-dd');
       scope.selected = false;
     }
 
@@ -202,14 +198,33 @@ var app = angular.module('myApp', [])
     link: linker
   };
 })
-.directive('searchFlights', function() {
+.directive('searchFlights', function(Flights) {
   var linker = function(scope, el, attrs) {
 
+    scope.handleSubmit = function() {
+
+      var formContainer = el[0].parentElement,
+          args = {
+            from: formContainer.querySelector('input[name="date-'+ scope.from +'"]').value,
+            to: formContainer.querySelector('input[name="date-'+ scope.to +'"]').value,
+            fromAirport: formContainer.querySelector('input[name="code-'+ scope.fromAirport +'"]').value,
+            toAirport: formContainer.querySelector('input[name="code-'+ scope.toAirport +'"]').value
+          };
+          
+      Flights.fetchCheapFlights(args).then(function(response) {
+        scope.flights = response.flights;
+      });
+
+    };
   };
 
   return {
     scope: {
-      'buttonName': '@'
+      'buttonName': '@',
+      'fromAirport': '@',
+      'toAirport': '@',
+      'from': '@',
+      'to': '@'
     },
     restrict: 'EA',
     transclude: true,
@@ -236,8 +251,14 @@ var app = angular.module('myApp', [])
     return res;
   };
 
-  var fetchCheapFlights = function() {
-    return $http.get('/api/flights/from/DUB/to/CIA/2015-01-02/2015-10-02/250/unique/?limit=15&offset-0')
+  var fetchCheapFlights = function(args) {
+    var qs = [ 
+      'from', args.fromAirport, 
+      'to', args.toAirport, 
+      args.from, args.to 
+    ].join('/');
+
+    return $http.get('/api/flights/' + qs + '/250/unique/?limit=15&offset-0')
       .then(function(result) {
         return result.data;
       });
