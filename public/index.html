@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Cheap Flight Finder</title>
   <link href='http://fonts.googleapis.com/css?family=Raleway:300,500,700,400' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/node_modules/angular/angular-csp.css">
+  <link rel="stylesheet" href="/angular/angular-csp.css">
   <link rel="stylesheet" href="/css/app.css">
 </head>
 <body ng-app="myApp" ng-cloak>
@@ -14,15 +14,15 @@
         <span class="cf-airplane logo"></span>
         <h1 class="title">Search your cheap flight!</h1>
         <form ng-controller="FormCtrl">
-        <autocomplete 
-          name="airport-from" 
-          placeholder="From:" 
-          items="airports" 
+        <autocomplete
+          name="airport-from"
+          placeholder="From:"
+          items="airports"
           on-select="setDestination(selection)">
         </autocomplete>
         <autocomplete
-          name="airport-to" 
-          placeholder="To:" 
+          name="airport-to"
+          placeholder="To:"
           items="destinationAirports">
         </autocomplete>
 
@@ -31,12 +31,13 @@
           <datepicker name="date-to" starts-from="1"></datepicker>
         </div>
 
-        <button class="btn btn-large">FIND FLIGHTS</button>
+        <button ng-click="handleSubmit()" class="btn btn-large">FIND FLIGHTS</button>
         </form>
       </div>
+      <p>{{ cheapFlights }}</p>
     </div>
   </div>
-  <script src="/node_modules/angular/angular.js"></script>
+  <script src="/angular/angular.js"></script>
   <script src="/js/app.js"></script>
 </body>
 </html>
