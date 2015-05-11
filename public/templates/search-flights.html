@@ -1,5 +1,32 @@
-<button ng-click="handleSubmit()" class="btn btn-large">{{ buttonName }}</button>
-
-<table ng-show="flights">
-	{{ flights }}
-</table>
+<div class="flights">
+  <table ng-show="flights && flights.length">
+    <thead>
+      <tr>
+        <th>Departure</th>
+        <th></th>
+        <th>Arrival</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="flight in flights">
+      <td>
+        <strong>{{ flight.outbound.dateFrom|date:'HH:MM'}}</strong><br>
+        {{ flight.outbound.airportFrom.iataCode }}
+      </td> 
+      <td class="plane"><i class="cf-airplane"></i></td> 
+      <td>
+        <strong>{{ flight.outbound.dateTo|date:'HH:MM'}}</strong><br>
+        {{ flight.outbound.airportTo.iataCode }}
+      </td>
+      <td>
+        {{ flight.summary.price.value|currency:flight.summary.price.currencySymbol  }}
+      </td>
+      <td>
+        <a target="_blank" href="http://www.ryanair.com/{{ flight.summary.flightViewUrl }}" class="btn btn-bold">Book Now!</button>
+      </td>
+    </tr>
+  </table>
+  <div ng-show="!flights || !flights.length">
+    No flights for this selection :(
+  </div>
+</div>

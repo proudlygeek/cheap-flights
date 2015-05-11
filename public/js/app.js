@@ -5,11 +5,21 @@ var app = angular.module('myApp', [])
   TAB: 9,
   ENTER: 13
 })
-.controller('FormCtrl', function($scope, Flights) {
+.controller('FormCtrl', function($rootScope, $scope, $timeout, Flights) {
   $scope.airports = Flights.airports();
 
   $scope.setDestination = function(airport) {
     $scope.destinationAirports = Flights.getDestinationsFor(airport.iataCode);
+
+    $timeout(function() {
+      $rootScope.$emit('formChange');
+    }, 0);
+  };
+
+  $scope.changed = function() {
+    $timeout(function() {
+      $rootScope.$emit('formChange');
+    }, 0);
   };
 
 })
@@ -165,6 +175,7 @@ var app = angular.module('myApp', [])
     scope.submitDay = function(date) {
       scope.date = $filter('date')(date, 'dd MMM yyyy');
       scope.dateAlt = $filter('date')(date, 'yyyy-MM-dd');
+      scope.onSelect({message: scope.date });
       scope.selected = false;
     }
 
@@ -190,7 +201,8 @@ var app = angular.module('myApp', [])
   return {
     scope: {
       'name': '@',
-      'startsFrom': '@'
+      'startsFrom': '@',
+      'onSelect': '&'
     },
     restrict: 'EA',
     transclude: true,
@@ -198,11 +210,11 @@ var app = angular.module('myApp', [])
     link: linker
   };
 })
-.directive('searchFlights', function(Flights) {
+.directive('searchFlights', function($rootScope, Flights) {
   var linker = function(scope, el, attrs) {
 
-    scope.handleSubmit = function() {
-
+    // scope.flights = [{"outbound":{"airportFrom":{"iataCode":"CIA","name":"Rome Ciampino"},"airportTo":{"iataCode":"BCN","name":"Barcelona El Prat"},"price":{"value":39.99,"valueMainUnit":"39","valueFractionalUnit":"99","currencySymbol":"€"},"dateFrom":"2015-05-26T14:20:00.000Z","dateTo":"2015-05-26T16:10:00.000Z"},"summary":{"price":{"value":39.99,"valueMainUnit":"39","valueFractionalUnit":"99","currencySymbol":"€"},"advertText":{"message":"Top Offer","type":"2"},"flightViewUrl":"/en/cheap-flights/rome-ciampino-to-barcelona-el-prat/?out-date=2015-05-26"}}];
+    $rootScope.$on('formChange', function() {
       var formContainer = el[0].parentElement,
           args = {
             from: formContainer.querySelector('input[name="date-'+ scope.from +'"]').value,
@@ -210,12 +222,16 @@ var app = angular.module('myApp', [])
             fromAirport: formContainer.querySelector('input[name="code-'+ scope.fromAirport +'"]').value,
             toAirport: formContainer.querySelector('input[name="code-'+ scope.toAirport +'"]').value
           };
+
+      if (args.fromAirport === '' || args.toAirport === '') {
+        return;
+      }
           
       Flights.fetchCheapFlights(args).then(function(response) {
         scope.flights = response.flights;
       });
 
-    };
+    });
   };
 
   return {

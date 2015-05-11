@@ -256,17 +256,42 @@ datepicker {
   background-color: #00253D;
   color: white;
   font-weight: 300;
+  border: 0;
   cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn.btn-bold {
+  font-weight: 500;
+  height: 100%;
+  padding: 10px;
 }
 
 .btn.btn-large {
   font-size: 1.4em;
   padding: 15px 0;
   width: 100%;
-  border: 0;
 }
 
 .btn:hover {
   color: #00253D;
   background-color: #FDC40F;
 };
+
+.flights {
+  background-color: #fff;
+}
+
+.flights table {
+  width: 100%;
+  text-align: center;
+}
+
+.flights table td {
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.flights .plane {
+  transform: rotate(135deg) translateY(8px) translateX(5px);
+}
