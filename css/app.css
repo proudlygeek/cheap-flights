@@ -164,6 +164,7 @@ body {
   float: left;
   position: relative;
   width: 100%;
+  margin-top: 15px;
 }
 
 datepicker {
@@ -176,13 +177,16 @@ datepicker {
 .datepicker input {
   width: 100%;
   padding-left: 30px;
+  margin-top: 0;
+  font-size: 1.1em;
+  cursor: pointer;
 }
 
 .datepicker .cf-calendar {
   position: absolute;
   top: 13px;
   left: 10px;
-  color: rgb(167, 183, 194);
+  color: #00253D;
 }
 
 .datepicker table {
@@ -217,4 +221,9 @@ datepicker {
 .datepicker .day:hover {
   color: #fff;
   background-color: #A7B7C2;
+}
+
+.datepicker .day.today {
+  background-color: #307AAB;
+  color: #fff;
 }

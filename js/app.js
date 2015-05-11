@@ -97,6 +97,10 @@ var app = angular.module('myApp', [])
 })
 .directive('datepicker', function($filter) {
   var linker = function(scope, el, attrs) {
+    var now = new Date(),
+        year = now.getFullYear(),
+        month = now.getMonth();
+
     var getMonthDays = function(year, month) {
       return new Date(year, month + 1, 0).getDate();
     };
@@ -125,12 +129,7 @@ var app = angular.module('myApp', [])
       return dates;
     };
 
-    var now = new Date(),
-        year = now.getFullYear(),
-        month = now.getMonth();
-
     scope.onFocus = function() {
-      scope.date = '';
       scope.selected = true;
     }
 
@@ -149,11 +148,14 @@ var app = angular.module('myApp', [])
     }
 
     scope.weeks = getWeeks(getFirstMonthWeekDay(year, month) - 1, getMonthDays(year, month), month, year);
+    scope.submitDay(now.setDate(now.getDate() + new Number(scope.startsFrom)));
+    scope.today = $filter('date')(new Date(), 'yyyy-MM-dd');
   };
 
   return {
     scope: {
-      'name': '@'
+      'name': '@',
+      'startsFrom': '@'
     },
     restrict: 'EA',
     transclude: true,
