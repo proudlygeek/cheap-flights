@@ -106,8 +106,7 @@ body {
   font-size: 1.2em;
   padding: 10px;
   outline: none;
-  border: 1px solid #A7B7C2;
-  margin-top: -1px;
+  margin: 2px 0;
 }
 
 .cheap-flights input:focus {
@@ -196,11 +195,10 @@ datepicker {
   font-size: 20px;
   width: 390px;
   position: absolute;
-  top: 43px;
+  top: 0px;
   margin-left: -2px;
   left: 2px;
   z-index: 1; 
-  border: 1px solid #307AAB;
 }
 
 .datepicker table .title {
@@ -239,6 +237,36 @@ datepicker {
 
 .datepicker .next,
 .datepicker .prev {
-  font-size: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  line-height: 2;
+  width: 100%;
+}
+
+.datepicker .next:hover,
+.datepicker .prev:hover {
+  color: #fff;
+  background-color: #00253D;
+}
+
+.btn {
+  background-color: #00253D;
+  color: white;
+  font-weight: 300;
   cursor: pointer;
 }
+
+.btn.btn-large {
+  font-size: 1.4em;
+  padding: 15px 0;
+  width: 100%;
+  border: 0;
+}
+
+.btn:hover {
+  color: #00253D;
+  background-color: #FDC40F;
+};
