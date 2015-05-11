@@ -5,7 +5,7 @@ var app = angular.module('myApp', [])
   TAB: 9,
   ENTER: 13
 })
-.controller('FormCtrl', function($scope, Flights) {
+.controller('FormCtrl', function($scope, $timeout, Flights) {
   $scope.airports = Flights.airports();
 
   $scope.setDestination = function(airport) {
@@ -13,8 +13,8 @@ var app = angular.module('myApp', [])
   };
 
   $scope.handleSubmit = function() {
-    Flights.fetchCheapFlights().then(function(data) {
-      $scope.cheapFlights = data;
+    Flights.fetchCheapFlights().then(function(response) {
+      $scope.response = response.flights;
     });
   };
 
@@ -222,7 +222,10 @@ var app = angular.module('myApp', [])
   };
 
   var fetchCheapFlights = function() {
-    return $http.get('/api/flights/from/DUB/to/CIA/2015-01-02/2015-10-02/250/unique/?limit=15&offset-0');
+    return $http.get('/api/flights/from/DUB/to/CIA/2015-01-02/2015-10-02/250/unique/?limit=15&offset-0')
+      .then(function(result) {
+        return result.data;
+      });
   };
 
   return {

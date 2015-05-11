@@ -13,6 +13,7 @@ app.get('/api/*', function(request, response) {
       path = options.path.replace(/api/, '');
 
   var connector = http.get(baseUrl + path, function(res) {
+    response.setHeader('Content-Type', 'application/json');
     res.pipe(response, { end: true });
   });
 

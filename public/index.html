@@ -25,16 +25,13 @@
           placeholder="To:"
           items="destinationAirports">
         </autocomplete>
-
         <div class="datepicker-container">
           <datepicker name="date-from" starts-from="0"></datepicker>
           <datepicker name="date-to" starts-from="1"></datepicker>
         </div>
-
         <button ng-click="handleSubmit()" class="btn btn-large">FIND FLIGHTS</button>
         </form>
       </div>
-      <p>{{ cheapFlights }}</p>
     </div>
   </div>
   <script src="/angular/angular.js"></script>
