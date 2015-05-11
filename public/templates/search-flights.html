@@ -2,6 +2,7 @@
   <table ng-show="flights && flights.length">
     <thead>
       <tr>
+        <th>Date</th>
         <th>Departure</th>
         <th></th>
         <th>Arrival</th>
@@ -9,6 +10,10 @@
       </tr>
     </thead>
     <tr ng-repeat="flight in flights">
+      <td>
+        <strong>{{ flight.outbound.dateFrom|date:'EEE' }}</strong><br>
+        {{ flight.outbound.dateFrom|date:'dd MMM yyyy' }}
+      </td>
       <td>
         <strong>{{ flight.outbound.dateFrom|date:'HH:MM'}}</strong><br>
         {{ flight.outbound.airportFrom.iataCode }}
@@ -22,7 +27,7 @@
         {{ flight.summary.price.value|currency:flight.summary.price.currencySymbol  }}
       </td>
       <td>
-        <a target="_blank" href="http://www.ryanair.com/{{ flight.summary.flightViewUrl }}" class="btn btn-bold">Book Now!</button>
+        <a target="_blank" href="http://www.ryanair.com/{{ flight.summary.flightViewUrl }}" class="btn btn-bold">Book Now!</a>
       </td>
     </tr>
   </table>

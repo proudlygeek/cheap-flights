@@ -212,8 +212,7 @@ var app = angular.module('myApp', [])
 })
 .directive('searchFlights', function($rootScope, Flights) {
   var linker = function(scope, el, attrs) {
-
-    // scope.flights = [{"outbound":{"airportFrom":{"iataCode":"CIA","name":"Rome Ciampino"},"airportTo":{"iataCode":"BCN","name":"Barcelona El Prat"},"price":{"value":39.99,"valueMainUnit":"39","valueFractionalUnit":"99","currencySymbol":"€"},"dateFrom":"2015-05-26T14:20:00.000Z","dateTo":"2015-05-26T16:10:00.000Z"},"summary":{"price":{"value":39.99,"valueMainUnit":"39","valueFractionalUnit":"99","currencySymbol":"€"},"advertText":{"message":"Top Offer","type":"2"},"flightViewUrl":"/en/cheap-flights/rome-ciampino-to-barcelona-el-prat/?out-date=2015-05-26"}}];
+    
     $rootScope.$on('formChange', function() {
       var formContainer = el[0].parentElement,
           args = {

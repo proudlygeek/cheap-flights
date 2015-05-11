@@ -87,7 +87,7 @@ body {
 }
 
 .cheap-flights {
-  width: 490px;
+  width: 600px;
   margin: auto;
   background-color: #F5F5F5;
   padding: 50px;
@@ -266,6 +266,7 @@ datepicker {
   font-weight: 500;
   height: 100%;
   padding: 10px;
+  display: block;
 }
 
 .btn.btn-large {
@@ -290,6 +291,7 @@ datepicker {
 
 .flights table td {
   font-family: 'Helvetica Neue', sans-serif;
+  padding: 10px;
 }
 
 .flights .plane {
