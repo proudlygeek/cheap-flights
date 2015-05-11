@@ -97,10 +97,8 @@ var app = angular.module('myApp', [])
 })
 .directive('datepicker', function($filter) {
   var linker = function(scope, el, attrs) {
-    var now = new Date(),
-        year = now.getFullYear(),
-        month = now.getMonth();
-
+    var now = new Date();
+        
     var getMonthDays = function(year, month) {
       return new Date(year, month + 1, 0).getDate();
     };
@@ -134,21 +132,56 @@ var app = angular.module('myApp', [])
     }
 
     scope.onBlur = function(e) {
+      var target = angular.element(e.relatedTarget);
 
-      if (angular.element(e.relatedTarget).hasClass('day')) {
+      if (target.hasClass('day') 
+        || target.hasClass('prev')
+        || target.hasClass('next')) {
         return false;
       }
 
       scope.selected = false;
     }
 
+    scope.prevMonth = function() {
+      var date = new Date(scope.year, scope.month, 1);
+      date.setDate(date.getDate() - 1);
+
+      scope.year = date.getFullYear();
+      scope.month = date.getMonth();
+      scope.updateWeeks();
+    };
+
+    scope.nextMonth = function() {
+      var date = new Date(scope.year, scope.month, 1);
+      date.setDate(date.getDate() + getMonthDays(scope.year, scope.month));
+
+      scope.year = date.getFullYear();
+      scope.month = date.getMonth();
+      scope.updateWeeks();
+    };
+
     scope.submitDay = function(date) {
       scope.date = $filter('date')(date, 'dd MMM yyyy');
       scope.selected = false;
     }
 
-    scope.weeks = getWeeks(getFirstMonthWeekDay(year, month) - 1, getMonthDays(year, month), month, year);
-    scope.submitDay(now.setDate(now.getDate() + new Number(scope.startsFrom)));
+    scope.updateWeeks = function() {
+      scope.titleDate = $filter('date')(new Date(scope.year, scope.month, 1), 'MMM yyyy');
+
+      scope.weeks = getWeeks(
+        getFirstMonthWeekDay(scope.year, scope.month) - 1, 
+        getMonthDays(scope.year, scope.month), 
+        scope.month, 
+        scope.year
+      );
+    };
+
+    scope.year = now.getFullYear(),
+    scope.month = now.getMonth();
+    scope.updateWeeks();
+
+    scope.submitDay(now.setDate(now.getDate() + Number(scope.startsFrom)));
     scope.today = $filter('date')(new Date(), 'yyyy-MM-dd');
   };
 

@@ -3,9 +3,14 @@
   <input name="{{ name }}" type="text" readonly ng-model="date" ng-focus="onFocus($event)" ng-blur="onBlur($event)" />
   <table ng-show="selected">
     <thead>
+      <tr class="title">
+        <th colspan="1"><a ng-click="prevMonth()" href="#" class="prev cf-chevron-left"></a></th>
+        <th colspan="5">{{ titleDate }}</th>
+        <th class="next" colspan="1"><a ng-click="nextMonth()" href="#" class="next cf-chevron-right"></a></span></th> 
+      </tr>
       <tr>
         <th>Mo</th>
-        <th>Tu</th>
+        <th>Tu</th> 
         <th>We</th>
         <th>Th</th>
         <th>Fr</th>

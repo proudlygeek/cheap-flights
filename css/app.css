@@ -203,6 +203,15 @@ datepicker {
   border: 1px solid #307AAB;
 }
 
+.datepicker table .title {
+  font-size: 18px;
+  height: 50px;
+}
+
+.datepicker table .title th {
+  font-weight: 400;
+}
+
 .datepicker table td {
   box-sizing: content-box;
   line-height: 1;
@@ -226,4 +235,10 @@ datepicker {
 .datepicker .day.today {
   background-color: #307AAB;
   color: #fff;
+}
+
+.datepicker .next,
+.datepicker .prev {
+  font-size: 20px;
+  cursor: pointer;
 }
