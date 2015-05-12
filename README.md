@@ -9,24 +9,16 @@ Build a small web app using the *live Ryanair API* for cheap flight information.
 
 *This must be coded as a single page Javascript application.*
 
-Points are given for:
----------------------
-- Style and colour
-- Error handling
-- User experience considerations
-- Using AngularJS and vanilla JS.
-- Modularity (re-usability of component code)
-- Responsive design
+Installation
+------------
 
-Extra points are given for:
---------------------------
+**1. Clone the project **
+```git clone https://github.com/proudlygeek/cheap-flights.git```
 
-- Automated testing
-- Cross browser considerations
-- Autocompletion (some data is interlinked, don't make the user think!)
-- Work that goes above and beyond the brief
+**2. Install the dependencies via NPM**
+```npm install```
 
-Points will be subtracted for:
-------------------------------
+**3. Run the local app server**
+```npm run serve```
 
-- Using jQuery :)
+This will serve the app on ```http://localhost:9000```
