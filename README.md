@@ -12,13 +12,32 @@ Build a small web app using the *live Ryanair API* for cheap flight information.
 Installation
 ------------
 
-**1. Clone the project **
-```git clone https://github.com/proudlygeek/cheap-flights.git```
+**1. Clone the project**
+
+```bash
+git clone https://github.com/proudlygeek/cheap-flights.git
+```
 
 **2. Install the dependencies via NPM**
-```npm install```
+
+```bash
+npm install
+```
 
 **3. Run the local app server**
-```npm run serve```
+
+```
+npm run serve
+```
 
 This will serve the app on ```http://localhost:9000```
+
+Demo
+----
+
+![](http://www.checksoundmusic.it/images/DEMO%20MORSELLI.jpg)
+
+Here: [http://cheap-flights.herokuapp.com][1]
+
+
+[1]: http://cheap-flights.herokuapp.com
