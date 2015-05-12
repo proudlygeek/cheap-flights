@@ -4,7 +4,7 @@
   <input type="hidden" name="code-{{ name }}" value="{{ autocompleteCode }}" />
   <ul class="suggestions" ng-show="(autocompleteInput.length && !selected) || focused">
     <li ng-class="{selected: $index === selectIndex}" data-index="{{ $index }}" ng-repeat="item in (filtered = (items|filter:{name: autocompleteInput}))">
-      <a class="item" ng-click="selectFromClick($event)" href="#">{{ item.name }}</a>
+      <a class="item" ng-click="selectFromClick($event)" href="">{{ item.name }}</a>
     </li>
     <li ng-show="!filtered.length">No results found :(</li>
   </ul>

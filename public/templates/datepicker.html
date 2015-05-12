@@ -5,9 +5,9 @@
   <table ng-show="selected">
     <thead>
       <tr class="title">
-        <th colspan="1"><a ng-click="prevMonth($event)" href="#" class="prev cf-chevron-left"></a></th>
+        <th colspan="1"><a ng-click="prevMonth($event)" href="" class="prev cf-chevron-left"></a></th>
         <th colspan="5">{{ titleDate }}</th>
-        <th colspan="1"><a ng-click="nextMonth($event)" href="#" class="next cf-chevron-right"></a></span></th> 
+        <th colspan="1"><a ng-click="nextMonth($event)" href="" class="next cf-chevron-right"></a></span></th> 
       </tr>
       <tr>
         <th>Mo</th>
@@ -22,7 +22,7 @@
     <tbody>
       <tr ng-repeat="week in weeks">
         <td ng-repeat="day in week track by $index">
-          <a ng-class="{day: day.label !== '', today: today === (day.date|date:'yyyy-MM-dd')}" href="#" ng-click="submitDay(day.date)" data-day="{{ day.date|date:'yyyy-MM-dd' }}">{{ day.label }}</a>
+          <a ng-class="{day: day.label !== '', today: today === (day.date|date:'yyyy-MM-dd')}" href="" ng-click="submitDay(day.date)" data-day="{{ day.date|date:'yyyy-MM-dd' }}">{{ day.label }}</a>
         </td>
       </tr>
   </table>
