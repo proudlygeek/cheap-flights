@@ -28,7 +28,7 @@ var app = angular.module('myApp', [])
   };
 
 })
-.directive('autocomplete', function(KEYBOARD) {
+.directive('autocomplete', function(KEYBOARD, $timeout) {
   var linker = function(scope, el, attrs) {
 
     scope.selectIndex = 0;
@@ -71,8 +71,7 @@ var app = angular.module('myApp', [])
     };
 
     scope.selectFromClick = function(e) {
-      e.preventDefault();
-      scope.selectIndex = angular.element(e.srcElement.parentNode).attr('data-index');
+      scope.selectIndex = angular.element(e.currentTarget.parentNode).attr('data-index');
       scope.onBlur();
     };
 
@@ -81,14 +80,15 @@ var app = angular.module('myApp', [])
         return false;
       }
 
-      scope.focused = false;
-
-      if (scope.filtered && scope.filtered.length) {
-        scope.selected = true;
-        scope.autocompleteInput = scope.filtered[scope.selectIndex].name;
-        scope.autocompleteCode = scope.filtered[scope.selectIndex].iataCode;
-        scope.onSelect({ selection: scope.filtered[scope.selectIndex] });
-      }
+      $timeout(function(){
+        scope.focused = false;
+        if (scope.filtered && scope.filtered.length) {
+          scope.selected = true;
+          scope.autocompleteInput = scope.filtered[scope.selectIndex].name;
+          scope.autocompleteCode = scope.filtered[scope.selectIndex].iataCode;
+          scope.onSelect({ selection: scope.filtered[scope.selectIndex] });
+        }     
+      }, 100);
     };
 
     scope.onFocus = function(e) {
@@ -111,7 +111,7 @@ var app = angular.module('myApp', [])
     link: linker
   };
 })
-.directive('datepicker', function($filter) {
+.directive('datepicker', function($filter, $timeout) {
   var linker = function(scope, el, attrs) {
     var now = new Date();
 
@@ -148,6 +148,7 @@ var app = angular.module('myApp', [])
     }
 
     scope.onBlur = function(e) {
+
       var target = angular.element(e.relatedTarget);
 
       if (target.hasClass('day')
@@ -156,7 +157,9 @@ var app = angular.module('myApp', [])
         return false;
       }
 
-      scope.selected = false;
+      $timeout(function() {
+        scope.selected = false;
+      }, 100);
     }
 
     scope.prevMonth = function() {
