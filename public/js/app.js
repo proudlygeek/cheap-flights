@@ -253,7 +253,7 @@ var app = angular.module('myApp', [])
   };
 })
 .service('Flights', function($http, $cacheFactory) {
-  var lruCache = $cacheFactory('lruCache', { capacity: 30 });
+  var lruCache = $cacheFactory('lruCache', { capacity: 50 });
 
   var unwrapResponse = function(response) {
     return response.data;

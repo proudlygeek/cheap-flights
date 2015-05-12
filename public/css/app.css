@@ -281,7 +281,7 @@ datepicker {
 };
 
 .flights {
-  background-color: #fff;
+  float: left;
 }
 
 .flights table {
@@ -295,5 +295,7 @@ datepicker {
 }
 
 .flights .plane {
-  transform: rotate(135deg) translateY(8px) translateX(5px);
+  -webkit-transform: rotate(135deg) translateY(8px) translateX(5px);
+      -ms-transform: rotate(135deg) translateY(8px) translateX(5px);
+          transform: rotate(135deg) translateY(8px) translateX(5px);
 }
