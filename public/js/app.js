@@ -18,9 +18,9 @@
     ENTER: 13
   })
   .constant('API', {
-    AIRPORTS: '/cors/http://ryanair-test.herokuapp.com/api/airports',
-    IATA_CODES: '/cors/http://www.ryanair.com/en/api/2/forms/flight-booking-selector/',
-    CHEAP_FLIGHTS: '/cors/http://www.ryanair.com/en/api/2/flights/'
+    AIRPORTS: '/cors/https://ryanair-test.herokuapp.com/api/airports',
+    IATA_CODES: '/cors/https://www.ryanair.com/en/api/2/forms/flight-booking-selector/',
+    CHEAP_FLIGHTS: '/cors/https://www.ryanair.com/en/api/2/flights/'
   })
   /**
    * Main App Controller
