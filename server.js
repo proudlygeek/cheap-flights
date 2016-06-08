@@ -1,6 +1,6 @@
 var express = require('express'),
     app     = express(),
-    http    = require('http'),
+    https   = require('https'),
     url     = require('url');
 
 app.use(express.static('public'));
@@ -12,7 +12,7 @@ app.get('/cors/*', function(request, response) {
   var options = url.parse(request.url),
       path = options.path.replace(/\/cors\//, '');
 
-  var connector = http.get(path, function(res) {
+  var connector = https.get(path, function(res) {
     response.setHeader('Content-Type', 'application/json');
     res.pipe(response, { end: true });
   });
